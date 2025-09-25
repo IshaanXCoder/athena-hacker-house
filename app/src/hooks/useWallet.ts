@@ -10,10 +10,18 @@ type WalletState = {
   error: string | null
 }
 
+// Extend the Window interface to include 'ethereum'
+declare global {
+  interface Window {
+    ethereum?: any
+  }
+}
+
 function getEthereumFromWindow(): any | null {
-  // @ts-expect-error - window.ethereum may not be typed
-  const eth = typeof window !== 'undefined' ? window.ethereum : undefined
-  return eth ?? null
+  if (typeof window !== 'undefined' && window.ethereum) {
+    return window.ethereum
+  }
+  return null
 }
 
 export function useWallet() {
