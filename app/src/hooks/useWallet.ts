@@ -70,15 +70,11 @@ export function useWallet() {
       const chainId = Number.parseInt(chainIdHex, 16)
       setState((s) => ({ ...s, chainId }))
     }
-    // @ts-expect-error - on is not fully typed
     eth.on?.('accountsChanged', handleAccountsChanged)
-    // @ts-expect-error - on is not fully typed
     eth.on?.('chainChanged', handleChainChanged)
 
     return () => {
-      // @ts-expect-error - removeListener is not fully typed
       eth.removeListener?.('accountsChanged', handleAccountsChanged)
-      // @ts-expect-error - removeListener is not fully typed
       eth.removeListener?.('chainChanged', handleChainChanged)
     }
   }, [])
